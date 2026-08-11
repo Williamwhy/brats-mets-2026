@@ -1,0 +1,30 @@
+{
+    "channel_names": {
+        "0": "T1",
+        "1": "T1CE",
+        "2": "T2",
+        "3": "FLAIR"
+    },
+    "labels": {
+        "background": 0,
+        "whole_tumor": [
+            1,
+            2,
+            3
+        ],
+        "tumor_core": [
+            1,
+            3
+        ],
+        "enhancing_tumor": 3,
+        "resection_cavity": 4
+    },
+    "regions_class_order": [
+        2,
+        1,
+        3,
+        4
+    ],
+    "numTraining": 300,
+    "file_ending": ".nii.gz"
+}

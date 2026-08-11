@@ -1,0 +1,11 @@
+nnunetv2>=2.4.0
+SimpleITK>=2.3.0
+nibabel>=5.2.0
+numpy>=1.26.0
+scipy>=1.13.0
+torch>=2.2.0
+tqdm>=4.66.0
+acvl-utils>=0.2
+dynamic-network-architectures>=0.3.1
+batchgenerators>=0.25
+threadpoolctl>=3.1.0
