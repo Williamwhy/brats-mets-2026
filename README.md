@@ -12,11 +12,7 @@ Docker submission for the [BraTS 2026 Brain Metastases Segmentation Challenge](h
 
 This repository contains the full inference pipeline submitted for the BraTS METS challenge: preprocessing, model inference, and postprocessing, packaged as a self-contained Docker container.
 
-The core model is built on [nnU-Net v2](https://github.com/MIC-DKFZ/nnUNet), extended with a custom trainer (`nnUNetTrainerStagedTverskyDoubleBranchFullTri`) that combines:
-
-- **Tversky loss** to better handle the severe class imbalance between tumor subregions and background
-- **A triple-encoder, dual-branch architecture** to separate learned representations across tumor subregions
-- **Region-based segmentation** across four target subregions: enhancing tumor (ET), resection cavity (RC), non-enhancing tumor core (NETC), and surrounding non-enhancing FLAIR hyperintensity (SNFH)
+The core model is built on [nnU-Net v2](https://github.com/MIC-DKFZ/nnUNet), extended with a custom trainer (`nnUNetTrainerStagedTverskyDoubleBranchFullTri`).
 
 ## Repository Structure
 
@@ -45,6 +41,7 @@ brats-mets-repo/
 - Docker (with GPU support via `nvidia-container-toolkit` for inference)
 - Python dependencies are listed in `requirements.txt` and installed automatically during the Docker build
 - Model weights (`checkpoint_final.pth`, ~400 MB) are tracked via [Git LFS](https://git-lfs.github.com/) — run `git lfs install` before cloning, or `git lfs pull` after cloning, to fetch the checkpoint
+- input required to be in standard BraTS format (.nii.gz and in BraTS naming convention)
 
 ## Build
 
@@ -86,15 +83,17 @@ The pipeline runs in three stages (see `run_model.py`):
 | Plans | `nnUNetResEncUNetMPlans` |
 | Configuration | `3d_fullres` |
 | Fold | 0 |
-| Loss | Tversky |
+| Loss | Tversky, CCdice and cross entropy |
 | Target subregions | ET, RC, NETC, SNFH |
 
 ## Results
 
 | Metric | ET | RC | NETC | SNFH |
 |---|---|---|---|---|
-| DSC | — | — | — | — |
-| NSD | — | — | — | — |
+| DSC | 0.60 | 0.40 | 0.61 | 0.54 |
+| NSD | 0.66 | 0.31 | 0.67 | 0.57 |
+| Large F1 | 0.69 | 0.07 | 0.69 | 0.68 |
+| Small F1 | 0.45 | 0.00 | 0.46 | 0.35 |
 
 *[Fill in validation/leaderboard results here]*
 
@@ -105,16 +104,16 @@ The pipeline runs in three stages (see `run_model.py`):
 
 ## License
 
-[Add license here, e.g. MIT, Apache 2.0]
+[Apache 2.0]
 
-## Citation
+<!--## Citation
 
 If you use this work, please cite:
 
 ```
 [Add citation / BibTeX here once available]
 ```
-
+-->
 ## Acknowledgments
 
-Developed as part of doctoral research on adaptive radiotherapy and AI-driven clinical tools under resource-constrained compute environments.
+This work was part of the Sprint AI Training for African Medical Imaging Knowledge Translation (SPARK) Academy 2026 summer school on deep learning in medical imaging. The authors would like to thank the instructors of the summer for providing insightful background knowledge on brain tumours that informed the research presented here, most notably: Maruf Adewole, Mohannad Barakat, Craig Jones, Noha Magdy, Tinashe Mutsvangwa, MacLean Nasrallah, Nicepho-rus Boniface Rutabasibwa, Charles Delahunt, Celia Cintas, Evan Calabrese, and Amal Saleh. The authors acknowledge the funding support provided to SPARK through the Lacuna Fund for Health and Equity(PI: Udunna Anazodo), the RSNAR & E Foundation  (PI: Farouk Dako), the University of Washington Population Health Initiative Tier2 Grant (PI: Mehmet Kurt), McGill University Healthy Brain and Healthy Lives (HBHL, Anazodo), and the National Science and Engineering Research Council of Canada (NSERC) Discovery Launch Supplement (PI:UdunnaAnazodo,DGECR-2022-00136).
