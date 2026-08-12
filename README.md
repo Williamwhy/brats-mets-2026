@@ -2,7 +2,7 @@
 
 Docker submission for the [BraTS 2026 Brain Metastases Segmentation Challenge](https://www.synapse.org/#!Synapse:syn75093060), using a custom nnU-Net v2 trainer with Tversky loss and a triple-encoder, dual-branch architecture.
 
-> **Team / Author:** [Your name or team name here]
+> **Team SAMAI**
 > **Synapse project:** `syn75093060`
 > **Submission image tag:** `v2.0`
 
