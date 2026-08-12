@@ -1,4 +1,4 @@
-# BraTS 2026 Brain Metastases (METS) Segmentation
+# BraTS 2026 Brain Metastases (METS) Segmentation - Team SAMAI
 
 Docker submission for the [BraTS 2026 Brain Metastases Segmentation Challenge](https://www.synapse.org/#!Synapse:syn75093060), using a custom nnU-Net v2 trainer with Tversky loss and a triple-encoder, dual-branch architecture.
 
